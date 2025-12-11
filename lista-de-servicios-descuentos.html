@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Servicios (PROMO) - AGÜERO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Outfit:wght@700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-void: #0A0A0B;
+            --bg-surface: #151516;
+            --text-primary: #EDEDED;
+            --text-secondary: #999;
+            --accent-lima: #D4FF00;
+            --accent-alert: #ff4d4d; /* Rojo para tachar (opcional) o gris */
+            --border-grid: #333333;
+            
+            /* ASIGNACIÓN TIPOGRÁFICA */
+            --font-title: 'Outfit', sans-serif;       /* Títulos (Bold) */
+            --font-body: 'Inter', sans-serif;         /* Cuerpo de texto */
+            --font-deco: 'Roboto Mono', monospace;    /* Secundario/Decoración */
+        }
+
+        body {
+            background-color: var(--bg-void);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .menu-container {
+            max-width: 1000px;
+            width: 100%;
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-grid);
+            box-shadow: 0 0 60px rgba(0,0,0,0.9);
+        }
+
+        /* HEADER */
+        .header {
+            padding: 40px;
+            border-bottom: 1px solid var(--border-grid);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-svg { height: 35px; display: block; margin-bottom: 5px; }
+        
+        .doc-title {
+            font-family: var(--font-title);
+            font-size: 14px;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .promo-tag {
+            background: rgba(212, 255, 0, 0.1);
+            color: var(--accent-lima);
+            border: 1px solid var(--accent-lima);
+            padding: 5px 10px;
+            font-family: var(--font-deco);
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 4px;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        /* SECTIONS */
+        .section-block { padding: 40px; border-bottom: 1px solid var(--border-grid); }
+        .section-block:last-child { border-bottom: none; }
+
+        .section-header { margin-bottom: 30px; display: flex; align-items: baseline; justify-content: space-between; }
+        
+        .section-title {
+            font-family: var(--font-title);
+            font-size: 28px;
+            letter-spacing: -0.5px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        
+        .section-subtitle {
+            font-family: var(--font-deco);
+            font-size: 11px;
+            color: var(--accent-lima);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* PRICING GRID */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        /* CARD STYLES */
+        .service-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-grid);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: transform 0.2s;
+        }
+        
+        .card-recommended {
+            background: rgba(212, 255, 0, 0.03);
+            border: 1px solid var(--accent-lima);
+            box-shadow: 0 0 25px rgba(212, 255, 0, 0.05);
+            z-index: 10;
+        }
+        
+        .badge {
+            position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+            background: var(--accent-lima); color: black;
+            font-family: var(--font-deco);
+            font-size: 9px; font-weight: 700;
+            padding: 4px 10px; text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pack-name {
+            font-family: var(--font-title);
+            font-size: 18px;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+            color: white;
+            line-height: 1.1;
+        }
+        
+        .pack-sub {
+            font-family: var(--font-deco);
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            display: block;
+            letter-spacing: 1px;
+        }
+        .card-recommended .pack-sub { color: var(--accent-lima); }
+
+        .pack-ideal {
+            font-family: var(--font-body);
+            font-size: 12px;
+            color: #bbb;
+            height: 40px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        /* --- ESTILOS DE PRECIO CON DESCUENTO --- */
+        .price-wrapper {
+            margin-bottom: 25px;
+            border-bottom: 1px dashed #333;
+            padding-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .price-old {
+            font-family: var(--font-deco);
+            font-size: 14px;
+            color: #666; /* Color apagado */
+            text-decoration: line-through; /* La línea de tachado */
+            margin-bottom: -5px; /* Acercarlo al precio nuevo */
+            font-weight: 400;
+        }
+
+        .price-new {
+            font-family: var(--font-deco);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent-lima); /* Color Lima para resaltar */
+            letter-spacing: -1px;
+        }
+        /* ------------------------------------- */
+
+        .features {
+            font-family: var(--font-body);
+            list-style: none; padding: 0; margin: 0;
+            font-size: 13px; color: #999;
+            line-height: 1.6;
+        }
+        .features li { margin-bottom: 8px; padding-left: 18px; position: relative; }
+        
+        .features li::before {
+            content: "→";
+            font-family: var(--font-deco);
+            color: var(--text-secondary);
+            position: absolute; left: 0; font-size: 12px; font-weight: bold;
+        }
+        .card-recommended .features li::before { color: var(--accent-lima); }
+        .features strong { color: white; font-weight: 500; }
+
+        /* FOOTER */
+        .footer {
+            background: #111;
+            padding: 25px;
+            text-align: center;
+            font-family: var(--font-deco);
+            font-size: 10px;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-3 { grid-template-columns: 1fr; }
+            .menu-container { width: 100%; }
+        }
+        
+        @media print {
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .menu-container { box-shadow: none; border: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-container">
+        
+        <header class="header">
+            <div>
+                <img src="logo-aguero.svg" alt="AGÜERO" class="logo-svg">
+                <div class="doc-title">Ecosystem & Pricing <span class="promo-tag">OFFER 20% OFF</span></div>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-family: var(--font-deco); font-size: 10px; color: #666; letter-spacing: 1px;">MONEDA</div>
+                <div style="font-family: var(--font-deco); font-weight: 700; color: var(--accent-lima);">USD ($)</div>
+            </div>
+        </header>
+
+        <div class="section-block">
+            <div class="section-header">
+                <h2 class="section-title">🧬 BRANDING/WEB</h2>
+                <span class="section-subtitle">Pago Único (One-Off)</span>
+            </div>
+            
+            <div class="grid-3">
+                <div class="service-card">
+                    <div>
+                        <div class="pack-name">Pack A: Brand Core</div>
+                        <span class="pack-sub">(La Base)</span>
+                        <div class="pack-ideal">Para marcas nuevas que necesitan dejar de verse amateurs ya.</div>
+                        
+                        <div class="price-wrapper">
+                            <span class="price-old">$300</span>
+                            <span class="price-new">$240</span>
+                        </div>
+                    </div>
+                    <ul class="features">
+                        <li>Diagnóstico Visual Express</li>
+                        <li><strong>Logotipo + Variaciones</strong></li>
+                        <li>Paleta de Colores & Tipografía</li>
+                        <li>Manual de Marca "Lite"</li>
+                        <li>Kit Básico Redes (Avatar/Portada)</li>
+                        <li style="color: #666; font-style:italic; font-family: var(--font-deco); font-size: 11px; margin-top: 10px;">// Tiempo: 2 Semanas</li>
+                    </ul>
+                </div>
+
+                <div class="service-card card-recommended">
+                    <div class="badge">Best Seller</div>
+                    <div>
+                        <div class="pack-name" style="color:var(--accent-lima)">Pack B: Digital Presence</div>
+                        <span class="pack-sub">(El Best-Seller)</span>
+                        <div class="pack-ideal">Para negocios que necesitan validar confianza y vender online.</div>
+                        
+                        <div class="price-wrapper">
+                            <span class="price-old">$600</span>
+                            <span class="price-new">$480</span>
+                        </div>
+                    </div>
+                    <ul class="features">
+                        <li><strong>Todo lo del Pack A</strong></li>
+                        <li>Estrategia Visual (Dir. Arte)</li>
+                        <li><strong>Landing Page (One Page)</strong></li>
+                        <li>Copywriting Persuasivo</li>
+                        <li>Integración botón WhatsApp</li>
+                        <li style="color: var(--accent-lima); font-style:italic; font-family: var(--font-deco); font-size: 11px; margin-top: 10px;">// Tiempo: 3-4 Semanas</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div>
+                        <div class="pack-name">Pack C: Total Evolution</div>
+                        <span class="pack-sub">(Dominio de Mercado)</span>
+                        <div class="pack-ideal">Para empresas establecidas o startups con capital semilla.</div>
+                        
+                        <div class="price-wrapper">
+                            <span class="price-old">$800</span>
+                            <span class="price-new">$640</span>
+                        </div>
+                    </div>
+                    <ul class="features">
+                        <li>Diagnóstico Profundo</li>
+                        <li>Sistema de Identidad Full</li>
+                        <li>Manual Corporativo Completo</li>
+                        <li><strong>Web Corporativa (5 Secciones)</strong></li>
+                        <li>Launch Kit (Plantillas Editables)</li>
+                        <li style="color: #666; font-style:italic; font-family: var(--font-deco); font-size: 11px; margin-top: 10px;">// Tiempo: 4-6 Semanas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-block" style="background: #111;">
+            <div class="section-header">
+                <h2 class="section-title">🚀 MARKETING</h2>
+                <span class="section-subtitle">Iguala Mensual (Fee)</span>
+            </div>
+            
+            <div class="grid-3">
+                <div class="service-card">
+                    <div>
+                        <div class="pack-name">Nivel 1: Presencia</div>
+                        <span class="pack-sub">(Mantenimiento)</span>
+                        <div class="pack-ideal">Constancia digital para que tu negocio se vea activo y premium.</div>
+                        
+                        <div class="price-wrapper">
+                            <span class="price-old">$150</span>
+                            <span class="price-new">$120<span style="font-size:12px">/mes</span></span>
+                        </div>
+                    </div>
+                    <ul class="features">
+                        <li><strong>12 Piezas</strong> (8 Posts + 4 Reels)</li>
+                        <li>Diseño "Digital Deep" (Affinity)</li>
+                        <li>Optimización de Bio/Perfil</li>
+                        <li>Gestión de Comentarios (Lun-Vie)</li>
+                        <li style="color: #666; font-style:italic; font-family: var(--font-deco); font-size: 11px; margin-top: 10px;">// Objetivo: Retención</li>
+                    </ul>
+                </div>
+
+                <div class="service-card card-recommended">
+                    <div class="badge">Recomendado</div>
+                    <div>
+                        <div class="pack-name" style="color:var(--accent-lima)">Nivel 2: Tracción</div>
+                        <span class="pack-sub">(Adquisición)</span>
+                        <div class="pack-ideal">Compramos tráfico cualificado. Dejamos de hablarle a la pared.</div>
+                        
+                        <div class="price-wrapper">
+                            <span class="price-old">$300</span>
+                            <span class="price-new">$240<span style="font-size:12px">/mes</span></span>
+                        </div>
+                    </div>
+                    <ul class="features">
+                        <li><strong>16 Piezas</strong> (Mix Formatos)</li>
+                        <li><strong>Gestión de Ads (Meta)</strong></li>
+                        <li>Campaña Tráfico o Mensajes</li>
+                        <li>Reporte de Rendimiento Mensual</li>
+                        <li style="color: var(--accent-lima); font-style:italic; font-family: var(--font-deco); font-size: 11px; margin-top: 10px;">// Objetivo: Conversación</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div>
+                        <div class="pack-name">Nivel 3: Dominio</div>
+                        <span class="pack-sub">(Escalamiento)</span>
+                        <div class="pack-ideal">Estrategia agresiva. Solo para equipos de venta listos.</div>
+                        
+                        <div class="price-wrapper">
+                            <span class="price-old">$600</span>
+                            <span class="price-new">$480<span style="font-size:12px">/mes</span></span>
+                        </div>
+                    </div>
+                    <ul class="features">
+                        <li>Estrategia Full Funnel</li>
+                        <li><strong>20 Piezas</strong> (Viral + Venta)</li>
+                        <li>Ads Avanzados (Retargeting/A-B)</li>
+                        <li>Dirección Creativa Mensual</li>
+                        <li style="color: #666; font-style:italic; font-family: var(--font-deco); font-size: 11px; margin-top: 10px;">// Objetivo: ROAS</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            Ricardo Agüero | Brand Strategy & Growth<br>
+            Valencia, Venezuela
+        </footer>
+
+    </div>
+
+</body>
+</html>
